@@ -96,3 +96,51 @@ for ($i = 0, $parent_id = 0, $codeCategory = 1; $i < $inPutXML->Товар->coun
 }
 
 //importXml(simplexml_load_file('C:\Users\Gomynkyl\Desktop\git\InPutXML.xml'));
+
+
+function exportXml($a, $b) {
+$user = 'root';
+$pass = 'root';
+$pdoConn = new PDO('mysql:host=localhost;dbname=test_samson', $user, $pass);
+$domDoc = new domDocument("1.0", "utf-8");
+$domDoc->formatOutput=true;
+$element = $domDoc->createElement('Товары');
+$domDoc->appendChild($element);
+
+    $selectCategoryB = $pdoConn->query("SELECT * FROM a_category WHERE код_категории = $b");
+    $category = $selectCategoryB->fetch(PDO::FETCH_ASSOC);
+
+    $selectProductCombiconnect = $pdoConn->query("SELECT * FROM combiconnect WHERE ид_категории  = $category[ид_категории]");
+    while ($product_category = $selectProductCombiconnect->fetch(PDO::FETCH_ASSOC))
+        {
+          $selectProduct = $pdoConn->query("SELECT * FROM a_product WHERE ид_продукта = $product_category[ид_продукта]");
+          $product = $selectProduct->fetch(PDO::FETCH_ASSOC);
+          $formProductTag = $domDoc->createElement('Товар');
+          $formProductTag->setAttribute('Код', $product['код_продукта']);
+          $formProductTag->setAttribute('Название', $product['название']);
+
+          $selectPrice = $pdoConn->query("SELECT * FROM a_price WHERE ид_продукта = $product[ид_продукта]");
+          while ($price = $selectPrice->fetch(PDO::FETCH_ASSOC)) 
+              {
+                $price_tag = $domDoc->createElement('Цена', $price['цена']);
+                $price_tag->setAttribute('Тип', $price['тип']);
+                $formProductTag->appendChild($price_tag);
+              }
+          $formPropertiesTag = $domDoc->createElement('Свойства');
+          $selectProperty = $pdoConn->query("SELECT * FROM a_property WHERE ид_продукта = $product[ид_продукта]");
+          while ($property = $selectProperty->fetch(PDO::FETCH_ASSOC)) 
+              {
+               $property_tag = $domDoc->createElement($property['название'], $property['свойство']);
+               $formPropertiesTag->appendChild($property_tag);
+               $formProductTag->appendChild($formPropertiesTag);
+              }
+          $catalogs_tag = $domDoc->createElement('Разделы');
+          $catalog_tag = $domDoc->createElement('Раздел', $category['название']);
+          $catalogs_tag->appendChild($catalog_tag);
+          $formProductTag->appendChild($catalogs_tag);
+          $element ->appendChild($formProductTag);
+        }
+  $domDoc->save($a);
+}
+
+ exportXml('C:\Users\Gomynkyl\Desktop\git\outPutXML.xml',1);
