@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 15 2021 г., 16:16
+-- Время создания: Апр 22 2021 г., 14:13
 -- Версия сервера: 5.7.29-log
 -- Версия PHP: 7.1.33
 
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `a_category` (
-  `ид_категории` int(11) NOT NULL,
-  `код_категории` varchar(255) DEFAULT NULL,
-  `название` varchar(255) DEFAULT NULL,
-  `ид_родителя` int(11) NOT NULL DEFAULT '0'
+  `id_category` int(11) NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -41,9 +41,9 @@ CREATE TABLE `a_category` (
 --
 
 CREATE TABLE `a_price` (
-  `ид_продукта` int(11) NOT NULL,
-  `тип` varchar(255) DEFAULT NULL,
-  `цена` float DEFAULT NULL
+  `product_id` int(11) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `price` decimal(15,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -53,9 +53,9 @@ CREATE TABLE `a_price` (
 --
 
 CREATE TABLE `a_product` (
-  `ид_продукта` int(11) NOT NULL,
-  `код_продукта` varchar(255) DEFAULT NULL,
-  `название` varchar(255) DEFAULT NULL
+  `product_id` int(11) NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -65,9 +65,9 @@ CREATE TABLE `a_product` (
 --
 
 CREATE TABLE `a_property` (
-  `ид_продукта` int(11) NOT NULL,
-  `название` varchar(255) DEFAULT NULL,
-  `свойство` varchar(255) DEFAULT NULL
+  `product_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `property` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -77,8 +77,8 @@ CREATE TABLE `a_property` (
 --
 
 CREATE TABLE `combiconnect` (
-  `ид_продукта` int(11) NOT NULL,
-  `ид_категории` int(11) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -89,20 +89,20 @@ CREATE TABLE `combiconnect` (
 -- Индексы таблицы `a_category`
 --
 ALTER TABLE `a_category`
-  ADD PRIMARY KEY (`ид_категории`);
+  ADD PRIMARY KEY (`id_category`);
 
 --
 -- Индексы таблицы `a_product`
 --
 ALTER TABLE `a_product`
-  ADD PRIMARY KEY (`ид_продукта`);
+  ADD PRIMARY KEY (`product_id`);
 
 --
 -- Индексы таблицы `combiconnect`
 --
 ALTER TABLE `combiconnect`
-  ADD PRIMARY KEY (`ид_продукта`,`ид_категории`);
-
+  ADD PRIMARY KEY (`product_id`,`id_category`);
+  
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
@@ -111,13 +111,13 @@ ALTER TABLE `combiconnect`
 -- AUTO_INCREMENT для таблицы `a_category`
 --
 ALTER TABLE `a_category`
-  MODIFY `ид_категории` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `a_product`
 --
 ALTER TABLE `a_product`
-  MODIFY `ид_продукта` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
