@@ -56,7 +56,8 @@ class newBase
     {
 //         $value = serialize($value);
         $value = serialize($this->value);
-        return $this->name . ':' . sizeof($value) . ':' . $value;
+//         return $this->name . ':' . sizeof($value) . ':' . $value;
+        return $this->name . ':' . strlen($value) . ':' . $value;
     }
     /**
      * @return newBase
@@ -99,7 +100,8 @@ class newView extends newBase
         $road='Test3\newView';
         if (is_subclass_of($this->value, $road)) {
             $this->size = parent::getSize() + 1 + strlen($this->property);
-        } elseif ($this->type == 'test') {
+//         } elseif ($this->type == 'test') {
+          } elseif ($this->type === 'test') {
             $this->size = parent::getSize();
         } else {
             $this->size = strlen($this->value);
@@ -111,7 +113,8 @@ class newView extends newBase
     public function __sleep()
     {
 //         return ['property'];
-        return 'property';
+//         return 'property';
+        return ['property'];
     }
     /**
      * @return string
@@ -155,7 +158,8 @@ class newView extends newBase
     public function getSave(): string
     {
 //         if ($this->type == 'test') {
-        if ($this->type == 'test' and is_object($this->value)) {
+//         if ($this->type == 'test' and is_object($this->value)) {
+        if ($this->type === 'test' and is_object($this->value)) {
             $this->value = $this->value->getSave();
         }
         return parent::getSave() . serialize($this->property);
@@ -169,7 +173,8 @@ class newView extends newBase
 //         return (new newBase($arValue[0]))
         return (new newView($arValue[0]))
             ->setValue(unserialize(substr($value, strlen($arValue[0]) + 1
-                + strlen($arValue[1]) + 1), $arValue[1]))
+//                 + strlen($arValue[1]) + 1), $arValue[1]))
+                + strlen($arValue[1]) + 1 + $arValue[1])))
             ->setProperty(unserialize(substr($value, strlen($arValue[0]) + 1
                 + strlen($arValue[1]) + 1 + $arValue[1])))
             ;
