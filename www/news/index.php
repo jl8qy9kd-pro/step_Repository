@@ -83,4 +83,9 @@ $APPLICATION->SetTitle("Новости");
 	)
 	),
 	false
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);
+$APPLICATION->AddChainItem("Новость 1", "https://yandex.ru/news/story/Stavku_polgotnoj_ipoteke_povysyat_do7--577c468fe18feb0d25b848dbd9955329?lang=ru&from=main_portal&fan=1&stid=KUqKghmYZHzRnuMrcr0f&t=1622820304&persistent_id=145645420&lr=193&msid=1622820986.36217.82664.5468&mlid=1622820304.glob_225.577c468f&utm_medium=topnews_news&utm_source=morda_desktop");
+
+?>
+
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
