@@ -7,7 +7,7 @@ $APPLICATION->SetTitle("Новости");
 	array(
 		"IBLOCK_TYPE" => "news",
 		"IBLOCK_ID" => "1",
-		"NEWS_COUNT" => "5",
+		"NEWS_COUNT" => "1",
 		"USE_SEARCH" => "N",
 		"USE_RSS" => "Y",
 		"NUM_NEWS" => "20",
@@ -21,7 +21,7 @@ $APPLICATION->SetTitle("Новости");
 		"SORT_BY2" => "SORT",
 		"SORT_ORDER2" => "ASC",
 		"CHECK_DATES" => "Y",
-		"SEF_MODE" => "N",
+		"SEF_MODE" => "Y",
 		"SEF_FOLDER" => "/news/",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_SHADOW" => "N",
@@ -67,11 +67,11 @@ $APPLICATION->SetTitle("Новости");
 		"DETAIL_PAGER_TITLE" => "Страница",
 		"DETAIL_PAGER_TEMPLATE" => "arrows",
 		"DETAIL_PAGER_SHOW_ALL" => "N",
-		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_TOP_PAGER" => "Y",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"PAGER_TITLE" => "Новости",
 		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => "",
+		"PAGER_TEMPLATE" => "navigation",
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000000",
 		"PAGER_SHOW_ALL" => "N",
@@ -89,9 +89,12 @@ $APPLICATION->SetTitle("Новости");
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"SHOW_404" => "N",
 		"MESSAGE_404" => "",
-		"VARIABLE_ALIASES" => array(
-			"SECTION_ID" => "SECTION_ID",
-			"ELEMENT_ID" => "ELEMENT_ID",
+		"SEF_URL_TEMPLATES" => array(
+			"news" => "",
+			"section" => "",
+			"detail" => "#ELEMENT_CODE#/",
+			"rss" => "rss/",
+			"rss_section" => "#SECTION_ID#/rss/",
 		)
 	),
 	false
